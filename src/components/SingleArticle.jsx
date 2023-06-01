@@ -8,11 +8,6 @@ const SingleArticle = () => {
   const { articleId } = useParams();
   const [singleArticle, setSingleArticle] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [voteButton, setVoteButton] = useState({
-    clickType: null,
-    clickAmount: 0,
-  });
-  const [voteAmount, setVoteAmount] = useState(0);
 
   useEffect(() => {
     getArticleById(articleId).then(({ article }) => {
@@ -32,20 +27,11 @@ const SingleArticle = () => {
       <h3>Author: {singleArticle.author}</h3>
       <h3>Topic: {singleArticle.topic}</h3>
       <p>Date: {singleArticle.created_at}</p>
-      <p>Votes: {singleArticle.votes + voteAmount}</p>
-      <div>
-        <Vote
-          voteAmount={1}
-          setVoteButton={setVoteButton}
-          setVoteAmount={setVoteAmount}
-        />
-        Vote
-        <Vote
-          voteAmount={-1}
-          setVoteButton={setVoteButton}
-          setVoteAmount={setVoteAmount}
-        />
-      </div>
+      <Vote
+        votes={singleArticle.votes}
+        componentName='articles'
+        componentId={articleId}
+      />
       <Comments />
     </div>
   );

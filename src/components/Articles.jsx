@@ -24,12 +24,14 @@ const Articles = () => {
       {articles.map((article) => {
         return (
           <Link to={`/articles/${article.article_id}`} key={article.article_id}>
-            <h2>{article.title}</h2>
-            <h3>Author: {article.author}</h3>
-            <h3>Topic: {article.topic}</h3>
-            <p>Votes: {article.votes}</p>
-            <p>Date: {article.created_at}</p>
-            <p>Comments: {article.comment_count}</p>
+            <article id='article-container'>
+              <h2>{article.title}</h2>
+              <h3>Author: {article.author}</h3>
+              <h3>Topic: {article.topic}</h3>
+              <p>Votes: {article.votes}</p>
+              <p>Date: {article.created_at}</p>
+              <p>Comments: {article.comment_count}</p>
+            </article>
           </Link>
         );
       })}

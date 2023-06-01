@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getCommentsByArticleId } from "../utils/api";
+import Vote from "./Vote";
 
 const Comments = () => {
   const { articleId } = useParams();
@@ -26,7 +27,11 @@ const Comments = () => {
             <h2>Author: {comment.author}</h2>
             <p>{comment.body}</p>
             <p>Date: {comment.created_at}</p>
-            <p>Votes: {comment.votes}</p>
+            <Vote
+              votes={comment.votes}
+              componentName='comments'
+              componentId={comment.comment_id}
+            />
           </div>
         );
       })}

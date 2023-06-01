@@ -1,45 +1,52 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { patchComponentVotes } from "../utils/api";
-import { useParams } from "react-router-dom";
 
-const Vote = ({ voteAmount, setVoteButton, setVoteAmount }) => {
-  const { articleId } = useParams();
+const Vote = ({ votes, componentName, componentId }) => {
+  const [buttonClicked, setButtonClicked] = useState({ type: "", val: 0 });
+  const [voteAmount, setVoteAmount] = useState(0);
 
-  const handleVote = () => {
+  useEffect(() => {
+    if (buttonClicked.type) {
+      patchComponentVotes(componentName, componentId, buttonClicked.val);
+    }
+  }, [voteAmount]);
+
+  const handleVote = (e) => {
     const lookUpTable = {
       up: 1,
       down: -1,
+      1: "up",
+      "-1": "down",
     };
 
-    setVoteButton(({ clickType, clickAmount }) => {
-      let newClickType;
-      let newClickAmount;
-      let patchReqAmount = 0;
+    setButtonClicked(({ type }) => {
+      let newType = "";
+      let newVal = 0;
 
-      if (lookUpTable[clickType] === voteAmount) {
-        newClickType = null;
-        newClickAmount = clickAmount === voteAmount ? 0 : voteAmount;
-        patchReqAmount = lookUpTable[clickType] * -1;
+      if (lookUpTable[type] === voteAmount) {
+        setVoteAmount(0);
+        newType = lookUpTable[e.target.value];
+        newVal = lookUpTable[type] * -1;
       } else {
-        newClickType = voteAmount >= 1 ? "up" : "down";
-        newClickAmount = voteAmount;
-        patchReqAmount = voteAmount;
+        setVoteAmount(+e.target.value);
+        newType = lookUpTable[e.target.value];
+        newVal = +e.target.value;
       }
 
-      setVoteAmount(newClickAmount);
-
-      console.log(patchReqAmount);
-      patchComponentVotes("articles", articleId, patchReqAmount); // happens twice because of a re-render?
-
-      return {
-        clickType: newClickType,
-        clickAmount: newClickAmount,
-      };
+      return { type: newType, val: newVal };
     });
   };
 
   return (
-    <button onClick={handleVote}>{voteAmount === 1 ? "up" : "down"}</button>
+    <div>
+      <button onClick={handleVote} value={1}>
+        up
+      </button>
+      <p>{votes + voteAmount}</p>
+      <button onClick={handleVote} value={-1}>
+        Down
+      </button>
+    </div>
   );
 };
 
