@@ -10,9 +10,12 @@ const SingleArticle = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(false);
+  }, [singleArticle]);
+
+  useEffect(() => {
     getArticleById(articleId).then(({ article }) => {
       setSingleArticle(article);
-      setIsLoading(false);
     });
   }, []);
 

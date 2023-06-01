@@ -9,9 +9,14 @@ const Comments = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    if (comments.length) {
+      setIsLoading(false);
+    }
+  }, [comments]);
+
+  useEffect(() => {
     getCommentsByArticleId(articleId).then(({ comments }) => {
       setComments(comments);
-      setIsLoading(false);
     });
   }, []);
 

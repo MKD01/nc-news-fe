@@ -7,9 +7,14 @@ const Articles = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    if (articles.length) {
+      setIsLoading(false);
+    }
+  }, [articles]);
+
+  useEffect(() => {
     getArticles().then(({ articles }) => {
       setArticles(articles);
-      setIsLoading(false);
     });
   }, []);
 
