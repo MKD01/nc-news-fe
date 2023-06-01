@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getArticles } from "../utils/api";
-// import Menu from "./Menu";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
@@ -20,7 +19,6 @@ const Articles = () => {
 
   return (
     <div>
-      {/* <Menu /> */}
       {articles.map((article) => {
         return (
           <Link to={`/articles/${article.article_id}`} key={article.article_id}>
