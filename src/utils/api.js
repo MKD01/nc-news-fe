@@ -26,6 +26,12 @@ export const patchComponentVotes = (component_name, component_id, vote) => {
   return api.patch(`/${component_name}/${component_id}`, { inc_votes: vote });
 };
 
+export const getTopics = () => {
+  return api.get(`/topics`).then((res) => {
+    return res.data.topics;
+  });
+};
+
 // export const getUserByUsername = (username) => {
 //   return api
 //     .get(`/users/${username}`)
@@ -35,12 +41,6 @@ export const patchComponentVotes = (component_name, component_id, vote) => {
 //     .catch(() => {
 //       alert("Username does not exist, please try again");
 //     });
-// };
-
-// export const getTopics = () => {
-//   return api.get(`/topics`).then((res) => {
-//     return res.data.topics;
-//   });
 // };
 
 // export const postCommentByArticleId = (article_id, currUser, comment) => {

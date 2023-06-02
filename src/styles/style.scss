@@ -1,3 +1,8 @@
+@use "/src/styles/_colors.scss";
+@use "/src/styles/_dropdown.scss";
+@use "/src/styles/_home.scss";
+@use "/src/styles/_articles.scss";
+
 * {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -13,12 +18,4 @@ body {
 
 a {
   text-decoration: none;
-}
-
-#article-container {
-  background: rgba(255, 255, 255, 0.064);
-  color: rgb(255, 255, 255);
-  margin: 1rem;
-  padding: 1rem;
-  max-width: 40rem;
 }

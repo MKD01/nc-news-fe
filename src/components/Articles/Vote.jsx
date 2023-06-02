@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { patchComponentVotes } from "../utils/api";
+import { patchComponentVotes } from "../../utils/api";
 
 const Vote = ({ votes, componentName, componentId }) => {
   const [buttonClicked, setButtonClicked] = useState({ type: "", val: 0 });
@@ -36,6 +36,10 @@ const Vote = ({ votes, componentName, componentId }) => {
       return { type: newType, val: newVal };
     });
   };
+
+  if (isNaN(votes) || isNaN(voteAmount)) {
+    return <p>There seems to be an error displaying the vote amount...</p>;
+  }
 
   return (
     <div>

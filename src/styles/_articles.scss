@@ -1,0 +1,36 @@
+#articles-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#article {
+  background: rgba(255, 255, 255, 0.064);
+  color: rgb(255, 255, 255);
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+  width: 40rem;
+  border-radius: 0.5rem;
+}
+
+.article-heading {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.article-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 2rem;
+  margin-bottom: 1rem;
+}
+
+.article-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 2rem;
+}

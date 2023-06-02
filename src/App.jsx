@@ -1,13 +1,14 @@
 import { Link, Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
-import Articles from "./components/Articles";
-import SingleArticle from "./components/SingleArticle";
-import Nav from "./components/Nav";
+import Articles from "./components/Articles/Articles";
+import SingleArticle from "./components/Articles/SingleArticle";
+import Nav from "./components/Nav/Nav";
+import Header from "./components/Header";
 
 function App() {
   return (
     <div className='App'>
-      <h1>NC News</h1>
+      <Header />
       <Nav />
       <Routes>
         <Route path='/' element={<Home />} />
