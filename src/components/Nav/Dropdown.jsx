@@ -40,7 +40,7 @@ const Dropdown = ({ topics, isLoading }) => {
       <button id='dropdown-button' onClick={handleDropdownClick}>
         {capitalizeFirstLetter(selected)}
         <i className={`arrow ${arrowDirection}`}></i>
-        <div className='link-buttons link-topics'></div>
+        {/* <div className='link-buttons link-topics'></div> */}
       </button>
       {isDropdownOpen && (
         <ul id='dropdown-options-containers'>

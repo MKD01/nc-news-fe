@@ -4,3 +4,14 @@ export const capitalizeFirstLetter = (str) => {
 
   return firstLetterCap + remainingLetters;
 };
+
+export const formatDate = (date) => {
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  const today = new Date(date);
+  return today.toLocaleDateString("en-GB", options);
+};

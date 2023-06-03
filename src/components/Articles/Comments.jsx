@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getCommentsByArticleId } from "../../utils/api";
 import Vote from "./Vote";
+import { formatDate } from "../../utils/utils";
 
 const Comments = () => {
   const { articleId } = useParams();
@@ -21,22 +22,32 @@ const Comments = () => {
   }, []);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div id='loader-container'>
+        <div id='loader'></div>
+      </div>
+    );
   }
 
   return (
     <div>
       {comments.map((comment) => {
         return (
-          <div key={comment.comment_id}>
-            <h2>Author: {comment.author}</h2>
-            <p>{comment.body}</p>
-            <p>Date: {comment.created_at}</p>
+          <div className='single comments' key={comment.comment_id}>
             <Vote
               votes={comment.votes}
               componentName='comments'
               componentId={comment.comment_id}
             />
+            <div className='single-comment-content'>
+              <div className='info-container'>
+                <h2>{comment.author}</h2>
+                <p>{formatDate(comment.created_at)}</p>
+              </div>
+              <div className='main-content'>
+                <p>{comment.body}</p>
+              </div>
+            </div>
           </div>
         );
       })}

@@ -1,22 +1,49 @@
-#articles-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-#article {
+.articles {
   background: rgba(255, 255, 255, 0.064);
   color: rgb(255, 255, 255);
   margin: 1rem;
   padding: 0.5rem 1rem;
-  width: 40rem;
+  width: 100%;
   border-radius: 0.5rem;
 }
 
+.single {
+  padding: 0.5rem 1rem 0.5rem 0;
+  display: grid;
+  grid-template-columns: 6% 92%;
+}
+
+.single-article-content {
+  margin-left: 1rem;
+}
+
+.single-article-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 80%;
+  margin: auto;
+}
+
+.vote-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  border-right: 2px solid white;
+}
+
 .article-heading {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 700;
+  margin-bottom: 1rem;
+  text-decoration: underline;
+}
+
+.article-body {
+  font-size: 18px;
+  font-weight: 600;
   margin-bottom: 1rem;
 }
 
@@ -33,4 +60,64 @@
   align-items: center;
   justify-content: space-between;
   padding-right: 2rem;
+}
+
+.articles-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 80%;
+  margin: auto;
+}
+
+.main-content {
+  padding: 1rem 1rem;
+}
+
+.vote {
+  border: solid black;
+  border-width: 0 5px 5px 0;
+  padding: 5px;
+  background: transparent;
+}
+
+.vote-button {
+  padding: 0.3rem;
+  background: transparent;
+  border: 0rem;
+}
+
+.vote-number {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.vote-selected {
+  border: solid red;
+  border-width: 0 5px 5px 0;
+}
+
+.vote-error {
+  padding: 1rem;
+}
+
+.comments {
+  background: rgba(255, 255, 255, 0.064);
+  color: rgb(255, 255, 255);
+  margin: 1rem;
+  border-radius: 0.5rem;
+}
+
+.single-comment-content {
+  margin-left: 1rem;
+}
+
+.info-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 2px solid white;
 }

@@ -7,11 +7,8 @@ const Nav = () => {
     <div id='nav-container'>
       <div id='links-container'>
         <Link to='/'>
-          Home <div className='link-buttons'></div>
-        </Link>
-
-        <Link to='/articles'>
-          Articles <div className='link-buttons'></div>
+          Articles
+          {/* <div className='link-buttons'></div> */}
         </Link>
       </div>
 

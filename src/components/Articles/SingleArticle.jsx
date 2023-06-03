@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { getArticleById } from "../../utils/api";
 import Comments from "./Comments";
 import Vote from "./Vote";
+import { capitalizeFirstLetter, formatDate } from "../../utils/utils";
 
 const SingleArticle = () => {
   const { articleId } = useParams();
@@ -10,31 +11,54 @@ const SingleArticle = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(false);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
   }, [singleArticle]);
 
   useEffect(() => {
+    setIsLoading(true);
     getArticleById(articleId).then(({ article }) => {
       setSingleArticle(article);
     });
   }, []);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div id='loader-container'>
+        <div id='loader'></div>
+      </div>
+    );
   }
 
   return (
-    <div>
-      <h2>{singleArticle.title}</h2>
-      <p>{singleArticle.body}</p>
-      <h3>Author: {singleArticle.author}</h3>
-      <h3>Topic: {singleArticle.topic}</h3>
-      <p>Date: {singleArticle.created_at}</p>
-      <Vote
-        votes={singleArticle.votes}
-        componentName='articles'
-        componentId={articleId}
-      />
+    <div className='single-article-container'>
+      <div className='single articles'>
+        <Vote
+          votes={singleArticle.votes}
+          componentName='articles'
+          componentId={articleId}
+        />
+        <div className='single-article-content'>
+          <div className='info-container'>
+            <div className='user-info'>
+              <h3 className='article-author'>{singleArticle.author}</h3>
+              <p className='article-date'>
+                {formatDate(singleArticle.created_at)}
+              </p>
+            </div>
+
+            <h3 className='article-topic'>
+              {capitalizeFirstLetter(singleArticle.topic)}
+            </h3>
+          </div>
+
+          <div className='main-content'>
+            <h2 className='article-heading'>{singleArticle.title}</h2>
+            <p className='article-body'>{singleArticle.body}</p>
+          </div>
+        </div>
+      </div>
       <Comments />
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getArticles } from "../../utils/api";
-import { capitalizeFirstLetter } from "../../utils/utils";
+import { capitalizeFirstLetter, formatDate } from "../../utils/utils";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
@@ -20,17 +20,20 @@ const Articles = () => {
   }, []);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div id='loader-container'>
+        <div id='loader'></div>
+      </div>
+    );
   }
 
   return (
-    <div id='articles-container'>
+    <div className='articles-container'>
       {articles.map((article) => {
         return (
           <Link
-            id='article'
             className='articles'
-            to={`/articles/${article.article_id}`}
+            to={`/article/${article.article_id}`}
             key={article.article_id}
           >
             <article>
@@ -44,7 +47,7 @@ const Articles = () => {
               </div>
 
               <div className='article-bottom'>
-                <p className='article-date'>{article.created_at}</p>
+                <p className='article-date'>{formatDate(article.created_at)}</p>
                 <p className='article-comment-count'>
                   Comments: {article.comment_count}
                 </p>

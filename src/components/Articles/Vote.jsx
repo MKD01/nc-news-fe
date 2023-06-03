@@ -33,23 +33,39 @@ const Vote = ({ votes, componentName, componentId }) => {
         newVal = +e.target.value;
       }
 
+      console.dir(e.target);
+
       return { type: newType, val: newVal };
     });
   };
 
   if (isNaN(votes) || isNaN(voteAmount)) {
-    return <p>There seems to be an error displaying the vote amount...</p>;
+    return (
+      <div className='vote-container vote-error'>
+        <p>There seems to be an error displaying the vote amount...</p>
+      </div>
+    );
   }
 
   return (
-    <div>
-      <button onClick={handleVote} value={1}>
-        up
-      </button>
-      <p>{votes + voteAmount}</p>
-      <button onClick={handleVote} value={-1}>
-        Down
-      </button>
+    <div className='vote-container'>
+      {/* <button className='vote-button' onClick={handleVote} value={1}> */}
+      <button
+        value={1}
+        onClick={handleVote}
+        className={`arrow up vote ${voteAmount === 1 ? "vote-selected" : ""}`}
+      ></button>
+      {/* </button> */}
+      <p className={`vote-number`}>{votes + voteAmount}</p>
+      {/* <button className='vote-button' onClick={handleVote} value={-1}> */}
+      <button
+        onClick={handleVote}
+        value={-1}
+        className={`arrow down vote ${
+          voteAmount === -1 ? "vote-selected" : ""
+        }`}
+      ></button>
+      {/* </button> */}
     </div>
   );
 };

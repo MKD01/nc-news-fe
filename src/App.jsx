@@ -1,5 +1,4 @@
-import { Link, Route, Routes } from "react-router-dom";
-import Home from "./components/Home";
+import { Route, Routes } from "react-router-dom";
 import Articles from "./components/Articles/Articles";
 import SingleArticle from "./components/Articles/SingleArticle";
 import Nav from "./components/Nav/Nav";
@@ -11,9 +10,8 @@ function App() {
       <Header />
       <Nav />
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/articles' element={<Articles />} />
-        <Route path='/articles/:articleId' element={<SingleArticle />} />
+        <Route path='/' element={<Articles />} />
+        <Route path='/article/:articleId' element={<SingleArticle />} />
       </Routes>
     </div>
   );

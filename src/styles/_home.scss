@@ -20,17 +20,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.238);
-  padding-bottom: 1rem;
+  padding-top: 1rem;
+  height: 2rem;
+  margin-bottom: 1rem;
 
   a {
-    background: red;
     padding: 0rem 1rem;
+    padding-bottom: 0.5rem;
     margin-right: 1rem;
     font-size: 24px;
     font-weight: 700;
-    color: black;
-    border-radius: 0.5rem;
+    color: white;
     width: 6rem;
     height: 2.2rem;
     text-align: center;
@@ -38,7 +38,7 @@
   }
 
   a:hover {
-    background: rgb(180, 23, 23);
+    border-bottom: 2px solid white;
   }
 }
 
@@ -58,19 +58,9 @@
   left: 3%;
 }
 
-#home-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem 0;
-}
-
 @media (max-width: 700px) {
   #nav-container {
     flex-direction: column;
-  }
-
-  #links-container {
-    margin-bottom: 1rem;
+    height: 100%;
   }
 }
