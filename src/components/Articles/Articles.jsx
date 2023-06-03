@@ -6,18 +6,7 @@ import { capitalizeFirstLetter, formatDate } from "../../utils/utils";
 const Articles = () => {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [topic, setTopic] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
-
-  useEffect(() => {
-    const topic = searchParams.get("topic");
-
-    if (topic) {
-      setTopic(topic);
-    } else {
-      setTopic("");
-    }
-  }, [searchParams]);
 
   useEffect(() => {
     if (articles.length) {
@@ -27,10 +16,12 @@ const Articles = () => {
 
   useEffect(() => {
     setIsLoading(true);
+    const topic = searchParams.get("topic") ? searchParams.get("topic") : "";
+
     getArticles(topic).then(({ articles }) => {
       setArticles(articles);
     });
-  }, [topic]);
+  }, [searchParams]);
 
   if (isLoading) {
     return (
