@@ -4,10 +4,16 @@ const api = axios.create({
   baseURL: "https://mkd-nc-news.onrender.com/api",
 });
 
-export const getArticles = (topic) => {
-  return api.get(`/articles`, { params: { topic: topic } }).then(({ data }) => {
-    return data;
-  });
+export const getArticles = (topic, sort_by, order_by) => {
+  if (sort_by === "date") {
+    sort_by = "created_at";
+  }
+
+  return api
+    .get(`/articles`, { params: { topic, sort_by, order_by } })
+    .then(({ data }) => {
+      return data;
+    });
 };
 
 export const getArticleById = (articleId) => {

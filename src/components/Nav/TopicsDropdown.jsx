@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { capitalizeFirstLetter } from "../../utils/utils";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import useDropdown from "../../hooks/useDropdown";
 import { getTopics } from "../../utils/api";
 

@@ -16,9 +16,11 @@ const Articles = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    const topic = searchParams.get("topic") ? searchParams.get("topic") : "";
+    const topic = searchParams.get("topic");
+    const orderBy = searchParams.get("order");
+    const sortBy = searchParams.get("sort-by");
 
-    getArticles(topic).then(({ articles }) => {
+    getArticles(topic, sortBy, orderBy).then(({ articles }) => {
       setArticles(articles);
     });
   }, [searchParams]);

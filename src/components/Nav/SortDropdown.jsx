@@ -3,8 +3,8 @@ import { capitalizeFirstLetter } from "../../utils/utils";
 import { useSearchParams } from "react-router-dom";
 import useDropdown from "../../hooks/useDropdown";
 
-const OrderDropdown = () => {
-  const [selected, setSelected] = useState("desc");
+const SortDropdown = () => {
+  const [selected, setSelected] = useState("date");
   const [searchParams, setSearchParams] = useSearchParams();
   const {
     handleDropdownClose,
@@ -14,20 +14,20 @@ const OrderDropdown = () => {
   } = useDropdown();
 
   useEffect(() => {
-    const order = searchParams.get("order");
+    const sort = searchParams.get("sort-by");
 
-    if (order) {
-      setSelected(order);
+    if (sort) {
+      setSelected(sort);
     } else {
-      setSelected("desc");
-      searchParams.set("order", "desc");
-      setSearchParams(searchParams);
+      setSelected("date");
+      //   searchParams.set("sort-by", "date");
+      //   setSearchParams(searchParams);
     }
   }, [searchParams]);
 
   const handleOptionsClick = (val) => {
     setSelected(val);
-    searchParams.set("order", val);
+    searchParams.set("sort-by", val);
     setSearchParams(searchParams);
     handleDropdownClick();
   };
@@ -45,18 +45,19 @@ const OrderDropdown = () => {
           <li className='options-container'>
             <button
               className='dropdown-options'
-              onClick={() => handleOptionsClick("asc")}
+              onClick={() => handleOptionsClick("date")}
             >
-              Asc
+              Date
             </button>
             <div className='underline' />
           </li>
+
           <li className='options-container'>
             <button
               className='dropdown-options'
-              onClick={() => handleOptionsClick("desc")}
+              onClick={() => handleOptionsClick("votes")}
             >
-              Desc
+              Votes
             </button>
             <div className='underline' />
           </li>
@@ -66,4 +67,4 @@ const OrderDropdown = () => {
   );
 };
 
-export default OrderDropdown;
+export default SortDropdown;

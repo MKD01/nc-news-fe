@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import TopicsDropdown from "./TopicsDropdown";
 import OrderDropdown from "./OrderDropdown";
+import SortDropdown from "./SortDropdown";
 
 const Nav = () => {
   return (
@@ -15,6 +16,7 @@ const Nav = () => {
 
       <TopicsDropdown />
       <OrderDropdown />
+      <SortDropdown />
     </div>
   );
 };
