@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { capitalizeFirstLetter } from "../../utils/utils";
+import { Link } from "react-router-dom";
 
 const Dropdown = ({ topics, isLoading }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selected, setSelected] = useState("Select a Topic");
+  const [selected, setSelected] = useState("Topics");
   const [arrowDirection, setArrowDirection] = useState("up");
-
   const ref = useRef();
 
   useEffect(() => {
@@ -30,8 +30,8 @@ const Dropdown = ({ topics, isLoading }) => {
     setIsDropdownOpen((currVal) => !currVal);
   };
 
-  const handleOptionsClick = (e) => {
-    setSelected(e.target.value);
+  const handleOptionsClick = (val) => {
+    setSelected(val);
     handleDropdownClick();
   };
 
@@ -49,20 +49,22 @@ const Dropdown = ({ topics, isLoading }) => {
           {!isLoading ? (
             topics.map((topic) => {
               return (
-                <li key={topic.slug}>
-                  <button
+                <li className='options-container' key={topic.slug}>
+                  <Link
+                    to={`/topics/${topic.slug}`}
                     className='dropdown-options'
-                    value={topic.slug}
-                    onClick={handleOptionsClick}
+                    onClick={() => handleOptionsClick(topic.slug)}
                   >
                     {capitalizeFirstLetter(topic.slug)}
-                  </button>
+                  </Link>
                   <div className='underline' />
                 </li>
               );
             })
           ) : (
-            <p className='dropdown-loading'>Loading Topics...</p>
+            <div id='loader-container'>
+              <div id='loader'></div>
+            </div>
           )}
         </ul>
       )}

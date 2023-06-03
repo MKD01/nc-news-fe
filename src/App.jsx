@@ -11,6 +11,7 @@ function App() {
       <Nav />
       <Routes>
         <Route path='/' element={<Articles />} />
+        <Route path='/topics/:topic' element={<Articles />} />
         <Route path='/article/:articleId' element={<SingleArticle />} />
       </Routes>
     </div>

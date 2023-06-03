@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { getArticles } from "../../utils/api";
 import { capitalizeFirstLetter, formatDate } from "../../utils/utils";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const params = useSearchParams();
+
+  useEffect(() => {
+    const pathName = window.location.pathname;
+
+    if (pathName.length > 1) {
+      console.log(pathName);
+    }
+  }, [params]);
 
   useEffect(() => {
     if (articles.length) {
@@ -14,6 +24,7 @@ const Articles = () => {
   }, [articles]);
 
   useEffect(() => {
+    setIsLoading(true);
     getArticles().then(({ articles }) => {
       setArticles(articles);
     });

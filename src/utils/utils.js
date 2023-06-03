@@ -12,6 +12,6 @@ export const formatDate = (date) => {
     month: "long",
     day: "numeric",
   };
-  const today = new Date(date);
+  const today = new Date();
   return today.toLocaleDateString("en-GB", options);
 };
