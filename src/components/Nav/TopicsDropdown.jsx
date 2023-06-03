@@ -1,13 +1,31 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { capitalizeFirstLetter } from "../../utils/utils";
 import { Link, useSearchParams } from "react-router-dom";
+import useDropdown from "../../hooks/useDropdown";
+import { getTopics } from "../../utils/api";
 
-const Dropdown = ({ topics, isLoading }) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+const TopicsDropdown = () => {
   const [selected, setSelected] = useState("Topics");
-  const [arrowDirection, setArrowDirection] = useState("up");
+  const [topics, setTopics] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
-  const ref = useRef();
+  const {
+    handleDropdownClose,
+    handleDropdownClick,
+    isDropdownOpen,
+    arrowDirection,
+  } = useDropdown();
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, [topics]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    getTopics().then((topicsResponse) => {
+      setTopics(topicsResponse);
+    });
+  }, []);
 
   useEffect(() => {
     const topic = searchParams.get("topic");
@@ -19,39 +37,18 @@ const Dropdown = ({ topics, isLoading }) => {
     }
   }, [searchParams]);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (!ref.current.contains(event.target)) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-  }, [ref]);
-
-  useEffect(() => {
-    if (isDropdownOpen) {
-      setArrowDirection("down");
-    } else {
-      setArrowDirection("up");
-    }
-  }, [isDropdownOpen]);
-
-  const handleDropdownClick = () => {
-    setIsDropdownOpen((currVal) => !currVal);
-  };
-
   const handleOptionsClick = (val) => {
     setSelected(val);
+    searchParams.set("topic", val);
+    setSearchParams(searchParams);
     handleDropdownClick();
   };
 
   return (
-    <div ref={ref}>
+    <div ref={handleDropdownClose}>
       <button id='dropdown-button' onClick={handleDropdownClick}>
         {capitalizeFirstLetter(selected)}
         <i className={`arrow ${arrowDirection}`}></i>
-        {/* <div className='link-buttons link-topics'></div> */}
       </button>
       {isDropdownOpen && (
         <ul id='dropdown-options-containers'>
@@ -61,13 +58,12 @@ const Dropdown = ({ topics, isLoading }) => {
             topics.map((topic) => {
               return (
                 <li className='options-container' key={topic.slug}>
-                  <Link
-                    to={`/articles?topic=${topic.slug}`}
+                  <button
                     className='dropdown-options'
                     onClick={() => handleOptionsClick(topic.slug)}
                   >
                     {capitalizeFirstLetter(topic.slug)}
-                  </Link>
+                  </button>
                   <div className='underline' />
                 </li>
               );
@@ -83,4 +79,4 @@ const Dropdown = ({ topics, isLoading }) => {
   );
 };
 
-export default Dropdown;
+export default TopicsDropdown;
