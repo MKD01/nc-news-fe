@@ -1,12 +1,23 @@
 import { useEffect, useRef, useState } from "react";
 import { capitalizeFirstLetter } from "../../utils/utils";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 const Dropdown = ({ topics, isLoading }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selected, setSelected] = useState("Topics");
   const [arrowDirection, setArrowDirection] = useState("up");
+  const [searchParams, setSearchParams] = useSearchParams();
   const ref = useRef();
+
+  useEffect(() => {
+    const topic = searchParams.get("topic");
+
+    if (topic) {
+      setSelected(topic);
+    } else {
+      setSelected("Topics");
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -51,7 +62,7 @@ const Dropdown = ({ topics, isLoading }) => {
               return (
                 <li className='options-container' key={topic.slug}>
                   <Link
-                    to={`/topics/${topic.slug}`}
+                    to={`/articles?topic=${topic.slug}`}
                     className='dropdown-options'
                     onClick={() => handleOptionsClick(topic.slug)}
                   >

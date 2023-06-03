@@ -10,9 +10,8 @@ function App() {
       <Header />
       <Nav />
       <Routes>
-        <Route path='/' element={<Articles />} />
-        <Route path='/topics/:topic' element={<Articles />} />
-        <Route path='/article/:articleId' element={<SingleArticle />} />
+        <Route path='/articles' element={<Articles />} />
+        <Route path='/articles/:articleId' element={<SingleArticle />} />
       </Routes>
     </div>
   );

@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { getArticles } from "../../utils/api";
 import { capitalizeFirstLetter, formatDate } from "../../utils/utils";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  const params = useSearchParams();
+  const [topic, setTopic] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    const pathName = window.location.pathname;
+    const topic = searchParams.get("topic");
 
-    if (pathName.length > 1) {
-      console.log(pathName);
+    if (topic) {
+      setTopic(topic);
+    } else {
+      setTopic("");
     }
-  }, [params]);
+  }, [searchParams]);
 
   useEffect(() => {
     if (articles.length) {
@@ -25,10 +27,10 @@ const Articles = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    getArticles().then(({ articles }) => {
+    getArticles(topic).then(({ articles }) => {
       setArticles(articles);
     });
-  }, []);
+  }, [topic]);
 
   if (isLoading) {
     return (
@@ -44,7 +46,7 @@ const Articles = () => {
         return (
           <Link
             className='articles'
-            to={`/article/${article.article_id}`}
+            to={`/articles/${article.article_id}`}
             key={article.article_id}
           >
             <article>
