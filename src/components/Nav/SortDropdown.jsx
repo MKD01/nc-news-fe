@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { capitalizeFirstLetter } from "../../utils/utils";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import useDropdown from "../../hooks/useDropdown";
+import { queryContext } from "../../contexts/QueryContext";
 
 const SortDropdown = () => {
-  const [selected, setSelected] = useState("date");
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { sort_by, setSort_by } = useContext(queryContext);
   const {
     handleDropdownClose,
     handleDropdownClick,
@@ -13,29 +13,15 @@ const SortDropdown = () => {
     arrowDirection,
   } = useDropdown();
 
-  useEffect(() => {
-    const sort = searchParams.get("sort-by");
-
-    if (sort) {
-      setSelected(sort);
-    } else {
-      setSelected("date");
-      //   searchParams.set("sort-by", "date");
-      //   setSearchParams(searchParams);
-    }
-  }, [searchParams]);
-
   const handleOptionsClick = (val) => {
-    setSelected(val);
-    searchParams.set("sort-by", val);
-    setSearchParams(searchParams);
+    setSort_by(val);
     handleDropdownClick();
   };
 
   return (
     <div ref={handleDropdownClose}>
       <button id='dropdown-button' onClick={handleDropdownClick}>
-        {capitalizeFirstLetter(selected)}
+        {capitalizeFirstLetter(sort_by)}
         <i className={`arrow ${arrowDirection}`}></i>
       </button>
       {isDropdownOpen && (
@@ -43,22 +29,24 @@ const SortDropdown = () => {
           <div className={`options-arrow`}></div>
 
           <li className='options-container'>
-            <button
+            <Link
+              to={`/articles`}
               className='dropdown-options'
               onClick={() => handleOptionsClick("date")}
             >
               Date
-            </button>
+            </Link>
             <div className='underline' />
           </li>
 
           <li className='options-container'>
-            <button
+            <Link
+              to={`/articles`}
               className='dropdown-options'
               onClick={() => handleOptionsClick("votes")}
             >
               Votes
-            </button>
+            </Link>
             <div className='underline' />
           </li>
         </ul>

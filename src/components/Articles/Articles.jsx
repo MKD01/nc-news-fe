@@ -1,12 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { getArticles } from "../../utils/api";
 import { capitalizeFirstLetter, formatDate } from "../../utils/utils";
+import { queryContext } from "../../contexts/QueryContext";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
+  const { sort_by, order_by, topic } = useContext(queryContext);
+
+  useEffect(() => {
+    if (topic !== "Topics") {
+      searchParams.set("topic", topic);
+    }
+    searchParams.set("sort-by", sort_by);
+    searchParams.set("order-by", order_by);
+    setSearchParams(searchParams);
+  }, [sort_by, order_by, topic, searchParams]);
 
   useEffect(() => {
     if (articles.length) {
@@ -17,12 +28,16 @@ const Articles = () => {
   useEffect(() => {
     setIsLoading(true);
     const topic = searchParams.get("topic");
-    const orderBy = searchParams.get("order");
+    const orderBy = searchParams.get("order-by");
     const sortBy = searchParams.get("sort-by");
 
-    getArticles(topic, sortBy, orderBy).then(({ articles }) => {
-      setArticles(articles);
-    });
+    getArticles(topic, sortBy, orderBy)
+      .then(({ articles }) => {
+        setArticles(articles);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, [searchParams]);
 
   if (isLoading) {

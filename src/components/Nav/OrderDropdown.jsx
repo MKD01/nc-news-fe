@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { capitalizeFirstLetter } from "../../utils/utils";
 import { useSearchParams } from "react-router-dom";
 import useDropdown from "../../hooks/useDropdown";
+import { queryContext } from "../../contexts/QueryContext";
 
 const OrderDropdown = () => {
-  const [selected, setSelected] = useState("desc");
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { order_by, setOrder_by } = useContext(queryContext);
   const {
     handleDropdownClose,
     handleDropdownClick,
@@ -13,29 +13,15 @@ const OrderDropdown = () => {
     arrowDirection,
   } = useDropdown();
 
-  useEffect(() => {
-    const order = searchParams.get("order");
-
-    if (order) {
-      setSelected(order);
-    } else {
-      setSelected("desc");
-      searchParams.set("order", "desc");
-      setSearchParams(searchParams);
-    }
-  }, [searchParams]);
-
   const handleOptionsClick = (val) => {
-    setSelected(val);
-    searchParams.set("order", val);
-    setSearchParams(searchParams);
+    setOrder_by(val);
     handleDropdownClick();
   };
 
   return (
     <div ref={handleDropdownClose}>
       <button id='dropdown-button' onClick={handleDropdownClick}>
-        {capitalizeFirstLetter(selected)}
+        {capitalizeFirstLetter(order_by)}
         <i className={`arrow ${arrowDirection}`}></i>
       </button>
       {isDropdownOpen && (

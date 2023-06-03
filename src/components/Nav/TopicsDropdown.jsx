@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { capitalizeFirstLetter } from "../../utils/utils";
 import { useSearchParams } from "react-router-dom";
 import useDropdown from "../../hooks/useDropdown";
 import { getTopics } from "../../utils/api";
+import { queryContext } from "../../contexts/QueryContext";
 
 const TopicsDropdown = () => {
-  const [selected, setSelected] = useState("Topics");
+  const { topic, setTopic } = useContext(queryContext);
   const [topics, setTopics] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [searchParams, setSearchParams] = useSearchParams();
   const {
     handleDropdownClose,
     handleDropdownClick,
@@ -27,27 +27,15 @@ const TopicsDropdown = () => {
     });
   }, []);
 
-  useEffect(() => {
-    const topic = searchParams.get("topic");
-
-    if (topic) {
-      setSelected(topic);
-    } else {
-      setSelected("Topics");
-    }
-  }, [searchParams]);
-
   const handleOptionsClick = (val) => {
-    setSelected(val);
-    searchParams.set("topic", val);
-    setSearchParams(searchParams);
+    setTopic(val);
     handleDropdownClick();
   };
 
   return (
     <div ref={handleDropdownClose}>
       <button id='dropdown-button' onClick={handleDropdownClick}>
-        {capitalizeFirstLetter(selected)}
+        {capitalizeFirstLetter(topic)}
         <i className={`arrow ${arrowDirection}`}></i>
       </button>
       {isDropdownOpen && (
