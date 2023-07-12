@@ -16,7 +16,7 @@ export const formatDate = (date) => {
 };
 
 export const createParams = (topic, sort_by) => {
-  const params = {};
+  const params = { limit: 20 };
 
   if (topic !== "Topics") {
     params.topic = topic;

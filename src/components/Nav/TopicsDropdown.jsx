@@ -4,6 +4,7 @@ import useDropdown from "../../hooks/useDropdown";
 import { getTopics } from "../../utils/api";
 import { queryContext } from "../../contexts/QueryContext";
 import { Link } from "react-router-dom";
+import Skeleton from "@mui/material/Skeleton";
 
 const TopicsDropdown = () => {
   const { topic, setTopic } = useContext(queryContext);
@@ -69,7 +70,19 @@ const TopicsDropdown = () => {
               })}
             </>
           ) : (
-            <></>
+            Array.from({ length: 4 }, (_, i) => i).map((blank) => {
+              return (
+                <li className='options-container' key={blank}>
+                  <Skeleton
+                    sx={{ bgcolor: "grey.900" }}
+                    className='dropdown-options options-loading'
+                    variant='rounded'
+                    height={32}
+                  />
+                  <div className='underline' />
+                </li>
+              );
+            })
           )}
         </ul>
       )}
