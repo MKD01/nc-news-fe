@@ -1,16 +1,13 @@
-import React, { useState } from "react";
+import { createContext, useState } from "react";
 
-export const queryContext = React.createContext();
+export const queryContext = createContext();
 
 export const QueryProvider = ({ children }) => {
-  const [sort_by, setSort_by] = useState("date");
-  const [order_by, setOrder_by] = useState("desc");
+  const [sort_by, setSort_by] = useState("latest");
   const [topic, setTopic] = useState("Topics");
 
   return (
-    <queryContext.Provider
-      value={{ sort_by, setSort_by, order_by, setOrder_by, topic, setTopic }}
-    >
+    <queryContext.Provider value={{ sort_by, setSort_by, topic, setTopic }}>
       {children}
     </queryContext.Provider>
   );

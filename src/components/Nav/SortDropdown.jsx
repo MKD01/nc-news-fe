@@ -1,10 +1,17 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { capitalizeFirstLetter } from "../../utils/utils";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useDropdown from "../../hooks/useDropdown";
 import { queryContext } from "../../contexts/QueryContext";
 
 const SortDropdown = () => {
+  const [dropdownOptions] = useState([
+    "Latest",
+    "Oldest",
+    "Popular",
+    "Unpopular",
+  ]);
+
   const { sort_by, setSort_by } = useContext(queryContext);
   const {
     handleDropdownClose,
@@ -28,27 +35,20 @@ const SortDropdown = () => {
         <ul id='dropdown-options-containers'>
           <div className={`options-arrow`}></div>
 
-          <li className='options-container'>
-            <Link
-              to={`/articles`}
-              className='dropdown-options'
-              onClick={() => handleOptionsClick("date")}
-            >
-              Date
-            </Link>
-            <div className='underline' />
-          </li>
-
-          <li className='options-container'>
-            <Link
-              to={`/articles`}
-              className='dropdown-options'
-              onClick={() => handleOptionsClick("votes")}
-            >
-              Votes
-            </Link>
-            <div className='underline' />
-          </li>
+          {dropdownOptions.map((option) => {
+            return (
+              <li key={option} className='options-container'>
+                <Link
+                  to={`/articles`}
+                  className='dropdown-options'
+                  onClick={() => handleOptionsClick(option)}
+                >
+                  {option}
+                </Link>
+                <div className='underline' />
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>

@@ -1,14 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import { capitalizeFirstLetter } from "../../utils/utils";
-import { useSearchParams } from "react-router-dom";
 import useDropdown from "../../hooks/useDropdown";
 import { getTopics } from "../../utils/api";
 import { queryContext } from "../../contexts/QueryContext";
+import { Link } from "react-router-dom";
 
 const TopicsDropdown = () => {
   const { topic, setTopic } = useContext(queryContext);
   const [topics, setTopics] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
   const {
     handleDropdownClose,
     handleDropdownClick,
@@ -17,13 +18,10 @@ const TopicsDropdown = () => {
   } = useDropdown();
 
   useEffect(() => {
-    setIsLoading(false);
-  }, [topics]);
-
-  useEffect(() => {
     setIsLoading(true);
     getTopics().then((topicsResponse) => {
       setTopics(topicsResponse);
+      setIsLoading(false);
     });
   }, []);
 
@@ -43,23 +41,35 @@ const TopicsDropdown = () => {
           <div className={`options-arrow`}></div>
 
           {!isLoading ? (
-            topics.map((topic) => {
-              return (
-                <li className='options-container' key={topic.slug}>
-                  <button
-                    className='dropdown-options'
-                    onClick={() => handleOptionsClick(topic.slug)}
-                  >
-                    {capitalizeFirstLetter(topic.slug)}
-                  </button>
-                  <div className='underline' />
-                </li>
-              );
-            })
+            <>
+              <li className='options-container'>
+                <Link
+                  to={`/articles`}
+                  className='dropdown-options'
+                  onClick={() => handleOptionsClick("Topics")}
+                >
+                  All
+                </Link>
+                <div className='underline' />
+              </li>
+
+              {topics.map((topic) => {
+                return (
+                  <li className='options-container' key={topic.slug}>
+                    <Link
+                      to={`/articles`}
+                      className='dropdown-options'
+                      onClick={() => handleOptionsClick(topic.slug)}
+                    >
+                      {capitalizeFirstLetter(topic.slug)}
+                    </Link>
+                    <div className='underline' />
+                  </li>
+                );
+              })}
+            </>
           ) : (
-            <div id='loader-container'>
-              <div id='loader'></div>
-            </div>
+            <></>
           )}
         </ul>
       )}

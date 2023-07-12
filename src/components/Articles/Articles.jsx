@@ -1,44 +1,52 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { getArticles } from "../../utils/api";
-import { capitalizeFirstLetter, formatDate } from "../../utils/utils";
+import { formatDate } from "../../utils/utils";
 import { queryContext } from "../../contexts/QueryContext";
+import { VscCommentDiscussion } from "react-icons/vsc";
+import { SlLike } from "react-icons/sl";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
-  const { sort_by, order_by, topic } = useContext(queryContext);
+  const { sort_by, setSort_by, topic, setTopic } = useContext(queryContext);
 
   useEffect(() => {
-    if (topic !== "Topics") {
-      searchParams.set("topic", topic);
-    }
-    searchParams.set("sort-by", sort_by);
-    searchParams.set("order-by", order_by);
-    setSearchParams(searchParams);
-  }, [sort_by, order_by, topic, searchParams]);
+    const topicParam = searchParams.get("topic");
+    const sortByParam = searchParams.get("sort-by");
 
-  useEffect(() => {
-    if (articles.length) {
-      setIsLoading(false);
+    if (sortByParam) {
+      setSort_by(sortByParam);
     }
-  }, [articles]);
+
+    if (topicParam) {
+      setTopic(topicParam);
+    }
+  }, []);
 
   useEffect(() => {
     setIsLoading(true);
-    const topic = searchParams.get("topic");
-    const orderBy = searchParams.get("order-by");
-    const sortBy = searchParams.get("sort-by");
 
-    getArticles(topic, sortBy, orderBy)
+    searchParams.set("sort-by", sort_by);
+
+    if (topic !== "Topics") {
+      searchParams.set("topic", topic);
+    } else {
+      searchParams.delete("topic");
+    }
+
+    setSearchParams(searchParams);
+
+    getArticles(topic, sort_by)
       .then(({ articles }) => {
         setArticles(articles);
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [searchParams]);
+  }, [sort_by, topic]);
 
   if (isLoading) {
     return (
@@ -51,28 +59,35 @@ const Articles = () => {
   return (
     <div className='articles-container'>
       {articles.map((article) => {
+        const articleHeading =
+          article.title.length > 60
+            ? article.title.slice(0, 60) + "..."
+            : article.title;
+
         return (
           <Link
             className='articles'
             to={`/articles/${article.article_id}`}
             key={article.article_id}
+            onMouseEnter={() => console.log("enter")}
+            onMouseLeave={() => console.log("leave")}
           >
             <article>
-              <h2 className='article-heading'>{article.title}</h2>
-
-              <div className='article-top'>
-                <h3 className='article-author'>By {article.author}</h3>
-                <h3 className='article-topic'>
-                  {capitalizeFirstLetter(article.topic)}
-                </h3>
-              </div>
+              <img
+                className='article-image'
+                src={article.article_img_url}
+                alt={article.title}
+              />
+              <h2 className='article-heading'>{articleHeading}</h2>
 
               <div className='article-bottom'>
                 <p className='article-date'>{formatDate(article.created_at)}</p>
                 <p className='article-comment-count'>
-                  Comments: {article.comment_count}
+                  <VscCommentDiscussion /> {article.comment_count}
                 </p>
-                <p className='article-likes'>Likes: {article.votes}</p>
+                <p className='article-likes'>
+                  <SlLike /> {article.votes}
+                </p>
               </div>
             </article>
           </Link>

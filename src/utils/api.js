@@ -1,19 +1,16 @@
 import axios from "axios";
+import { createParams } from "./utils";
 
 const api = axios.create({
   baseURL: "https://mkd-nc-news.onrender.com/api",
 });
 
-export const getArticles = (topic, sort_by, order_by) => {
-  if (sort_by === "date") {
-    sort_by = "created_at";
-  }
+export const getArticles = (topic, sort_by) => {
+  const params = createParams(topic, sort_by);
 
-  return api
-    .get(`/articles`, { params: { topic, sort_by, order_by } })
-    .then(({ data }) => {
-      return data;
-    });
+  return api.get(`/articles`, { params }).then(({ data }) => {
+    return data;
+  });
 };
 
 export const getArticleById = (articleId) => {
