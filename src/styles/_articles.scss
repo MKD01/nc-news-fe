@@ -78,27 +78,6 @@
   margin: auto;
 }
 
-@media (max-width: 1410px) {
-  .articles-container {
-    grid-template-columns: 1fr 1fr 1fr;
-    max-width: 66rem;
-  }
-}
-
-@media (max-width: 1070px) {
-  .articles-container {
-    grid-template-columns: 1fr 1fr;
-    max-width: 44rem;
-  }
-}
-
-@media (max-width: 700px) {
-  .articles-container {
-    grid-template-columns: 1fr;
-    max-width: 22rem;
-  }
-}
-
 .main-content {
   padding: 1rem 1rem;
 }
