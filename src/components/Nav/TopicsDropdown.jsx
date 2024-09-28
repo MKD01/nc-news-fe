@@ -31,8 +31,6 @@ const TopicsDropdown = () => {
     handleDropdownClick();
   };
 
-  console.log(topics);
-
   return (
     <div ref={handleDropdownClose}>
       <button id='dropdown-button' onClick={handleDropdownClick}>
