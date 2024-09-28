@@ -35,16 +35,16 @@ export const getTopics = () => {
   });
 };
 
-// export const getUserByUsername = (username) => {
-//   return api
-//     .get(`/users/${username}`)
-//     .then((res) => {
-//       return res.data.user;
-//     })
-//     .catch(() => {
-//       alert("Username does not exist, please try again");
-//     });
-// };
+export const getUserByUsername = (username) => {
+  return api
+    .get(`/users/${username}`)
+    .then((res) => {
+      return res.data.user;
+    })
+    .catch(() => {
+      alert("Username does not exist, please try again");
+    });
+};
 
 // export const postCommentByArticleId = (article_id, currUser, comment) => {
 //   return api

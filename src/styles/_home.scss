@@ -1,13 +1,41 @@
-#header {
+#header-container {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-around;
+  padding: 0.5rem;
+  background: rgba(0, 0, 0, 0.238);
+  position: relative;
+
+  #header {
+    color: red;
+    font-size: 54px;
+    font-weight: 700;
+  }
+
+  #header-user-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: red;
+    font-size: 24px;
+    font-weight: 700;
+  }
+}
+
+.header-profile {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
-  font-size: 54px;
-  font-weight: 700;
-  color: red;
-  background: rgba(0, 0, 0, 0.238);
-  position: relative;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 100%;
+  background: rgba(0, 0, 0, 0.266);
+  overflow: hidden;
+}
+
+img {
+  width: 3rem;
+  object-fit: contain;
 }
 
 #links-container {

@@ -31,6 +31,8 @@ const TopicsDropdown = () => {
     handleDropdownClick();
   };
 
+  console.log(topics);
+
   return (
     <div ref={handleDropdownClose}>
       <button id='dropdown-button' onClick={handleDropdownClick}>
@@ -79,7 +81,6 @@ const TopicsDropdown = () => {
                     variant='rounded'
                     height={32}
                   />
-                  <div className='underline' />
                 </li>
               );
             })
