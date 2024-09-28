@@ -33,8 +33,6 @@ const Vote = ({ votes, componentName, componentId }) => {
         newVal = +e.target.value;
       }
 
-      console.dir(e.target);
-
       return { type: newType, val: newVal };
     });
   };
@@ -49,15 +47,12 @@ const Vote = ({ votes, componentName, componentId }) => {
 
   return (
     <div className='vote-container'>
-      {/* <button className='vote-button' onClick={handleVote} value={1}> */}
       <button
         value={1}
         onClick={handleVote}
         className={`arrow up vote ${voteAmount === 1 ? "vote-selected" : ""}`}
       ></button>
-      {/* </button> */}
       <p className={`vote-number`}>{votes + voteAmount}</p>
-      {/* <button className='vote-button' onClick={handleVote} value={-1}> */}
       <button
         onClick={handleVote}
         value={-1}
@@ -65,7 +60,6 @@ const Vote = ({ votes, componentName, componentId }) => {
           voteAmount === -1 ? "vote-selected" : ""
         }`}
       ></button>
-      {/* </button> */}
     </div>
   );
 };

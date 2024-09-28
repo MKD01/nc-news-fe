@@ -10,6 +10,7 @@ function App() {
       <Header />
       <Nav />
       <Routes>
+        <Route path='/' element={<></>} />
         <Route path='/articles' element={<Articles />} />
         <Route path='/articles/:articleId' element={<SingleArticle />} />
       </Routes>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getArticleById } from "../../utils/api";
 import Comments from "./Comments";
 import Vote from "./Vote";
@@ -11,15 +11,14 @@ const SingleArticle = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 300);
-  }, [singleArticle]);
-
-  useEffect(() => {
     setIsLoading(true);
     getArticleById(articleId).then(({ article }) => {
       setSingleArticle(article);
+
+      // setTimeout(() => {
+      setIsLoading(false);
+      // }, 300);
+      // The above can be endbled once a skeleton has been setup for this component
     });
   }, []);
 
@@ -33,24 +32,27 @@ const SingleArticle = () => {
 
   return (
     <div className='single-article-container'>
-      <div className='single articles'>
-        <Vote
+      <div className='single article'>
+        {/* <Vote
           votes={singleArticle.votes}
           componentName='articles'
           componentId={articleId}
-        />
+        /> */}
         <div className='single-article-content'>
           <div className='info-container'>
             <div className='user-info'>
               <h3 className='article-author'>{singleArticle.author}</h3>
-              <p className='article-date'>
-                {formatDate(singleArticle.created_at)}
-              </p>
+              <Link
+                to={`/articles?topic=${singleArticle.topic}`}
+                className='article-topic'
+              >
+                {capitalizeFirstLetter(singleArticle.topic)}
+              </Link>
             </div>
 
-            <h3 className='article-topic'>
-              {capitalizeFirstLetter(singleArticle.topic)}
-            </h3>
+            <p className='article-date'>
+              {formatDate(singleArticle.created_at)}
+            </p>
           </div>
 
           <div className='main-content'>

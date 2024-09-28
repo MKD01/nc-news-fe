@@ -19,16 +19,17 @@
 #nav-container {
   max-width: 88rem;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  // grid-template-columns: 1fr 1fr 1fr 1fr;
   padding-top: 1rem;
   margin: auto;
+  display: flex;
 }
 
 #filter-container {
   grid-column: 4;
   display: flex;
   max-width: 22rem;
-  padding-left: 1rem;
+  // padding-left: 1rem;
 }
 
 .link-buttons {
