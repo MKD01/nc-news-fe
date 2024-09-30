@@ -31,7 +31,6 @@
   margin: 1rem;
   border-radius: 0.5rem;
   position: relative;
-  overflow: hidden;
 }
 
 .single {
@@ -116,7 +115,7 @@
   margin-left: 1rem;
 }
 
-.article-bottom {
+.articles-bottom {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -124,6 +123,24 @@
   bottom: 0%;
   width: 90%;
   padding: 1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.article-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  bottom: 0%;
+  padding-top: 1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.comment-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  bottom: 0%;
+  padding-top: 1rem;
   transition: all 0.3s ease-in-out;
 }
 
@@ -205,8 +222,14 @@
 }
 
 .article-comment-count,
-.article-likes {
+.articles-likes {
   display: flex;
   align-items: center;
   gap: 5px;
+}
+
+.likes {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }

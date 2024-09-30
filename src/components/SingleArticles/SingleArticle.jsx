@@ -1,4 +1,4 @@
-import Comments from "./Comments";
+import Comments from "../Comments/Comments";
 import SingleArticleCard from "./SingleArticleCard";
 
 const SingleArticle = () => {

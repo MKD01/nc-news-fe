@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
-import { patchComponentVotes } from "../../utils/api";
-import { SlDislike, SlLike } from "react-icons/sl";
+import { useState } from "react";
+import { patchComponentVotes } from "../utils/api";
 
-const Vote = ({ votes, componentName, componentId }) => {
+export default function useVotes() {
   const [voteAmount, setVoteAmount] = useState(0);
   const [error, setError] = useState("");
 
@@ -10,7 +9,7 @@ const Vote = ({ votes, componentName, componentId }) => {
     setError(err);
   };
 
-  const handleVote = (vote) => {
+  const handleVote = (vote, componentId, componentName) => {
     setVoteAmount((currVal) => {
       if (currVal === 0) {
         patchComponentVotes(componentName, componentId, vote).catch(
@@ -31,21 +30,9 @@ const Vote = ({ votes, componentName, componentId }) => {
     });
   };
 
-  if (error) {
-    return (
-      <div className='vote-container vote-error'>
-        <p>There seems to be an error displaying the vote amount...</p>
-      </div>
-    );
-  }
-
-  return (
-    <p className='likes'>
-      <SlLike onClick={() => handleVote(1)} />
-      {votes + voteAmount}
-      <SlDislike onClick={() => handleVote(-1)} />
-    </p>
-  );
-};
-
-export default Vote;
+  return {
+    error,
+    voteAmount,
+    handleVote,
+  };
+}

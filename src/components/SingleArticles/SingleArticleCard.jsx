@@ -1,8 +1,9 @@
+import { VscCommentDiscussion } from "react-icons/vsc";
 import { getArticleById } from "../../utils/api";
 import { capitalizeFirstLetter, formatDate } from "../../utils/utils";
-import Vote from "./Vote";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import Vote from "./Vote";
 
 const SingleArticleCard = () => {
   const { articleId } = useParams();
@@ -31,11 +32,6 @@ const SingleArticleCard = () => {
 
   return (
     <div className='single article'>
-      {/* <Vote
-    votes={article.votes}
-    componentName='articles'
-    componentId={articleId}
-  /> */}
       <div className='info-container'>
         <div className='user-info-container'>
           <div className='header-profile white-border'>
@@ -64,6 +60,17 @@ const SingleArticleCard = () => {
             alt={article.title}
           />
           <p className='article-text'>{article.body}</p>
+        </div>
+
+        <div className='article-bottom'>
+          <p className='article-comment-count'>
+            <VscCommentDiscussion /> {article.comment_count}
+          </p>
+          <Vote
+            votes={article.votes}
+            componentName='articles'
+            componentId={article.article_id}
+          />
         </div>
       </div>
     </div>
