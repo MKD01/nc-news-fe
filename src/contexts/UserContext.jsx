@@ -4,18 +4,22 @@ import { getUserByUsername } from "../utils/api";
 export const userContext = React.createContext();
 
 export const UserProvider = ({ children }) => {
+  const [userName, setUsername] = useState("tickle122");
   const [user, setUser] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [isUserLoading, setIsUserLoading] = useState(true);
 
   useEffect(() => {
-    getUserByUsername("tickle122").then((res) => {
+    setIsUserLoading(true);
+    getUserByUsername(userName).then((res) => {
       setUser(res);
-      setIsLoading(false);
+      setIsUserLoading(false);
     });
-  }, []);
+  }, [userName]);
 
   return (
-    <userContext.Provider value={{ user, setUser, isLoading }}>
+    <userContext.Provider
+      value={{ user, userName, setUsername, isUserLoading }}
+    >
       {children}
     </userContext.Provider>
   );

@@ -7,23 +7,35 @@
   height: 26rem;
   position: relative;
   overflow: hidden;
+
+  &:hover .article-image {
+    transform: scale(2.2) translateY(1rem);
+    z-index: 1;
+  }
+
+  &:hover .article-bottom {
+    background: rgba(45, 45, 45, 0.638);
+    z-index: 1;
+  }
+
+  &:hover .articles-heading {
+    transform: translateY(-15rem);
+    background: rgba(45, 45, 45, 0.638);
+    z-index: 1;
+  }
 }
 
 .article {
   background: rgba(255, 255, 255, 0.064);
   color: rgb(255, 255, 255);
   margin: 1rem;
-  // max-width: 20rem;
   border-radius: 0.5rem;
-  // height: 26rem;
   position: relative;
   overflow: hidden;
 }
 
 .single {
-  padding: 0.5rem;
-  // display: grid;
-  // grid-template-columns: ;
+  padding: 1rem;
 }
 
 .single-article-content {
@@ -39,6 +51,26 @@
   margin: auto;
 }
 
+.article-body {
+  display: flex;
+}
+
+.user-info-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.white-border {
+  border: solid white 1px;
+}
+
+.user-info {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .vote-container {
   display: flex;
   justify-content: space-around;
@@ -47,35 +79,41 @@
   border-right: 2px solid white;
 }
 
-.hovered {
-  height: 16rem;
-}
-
-.none-hovered {
-  width: 100%;
+.articles-image-container {
   height: 15rem;
 }
 
 .article-image {
+  width: fit-content;
+  height: 15rem;
   border-top-right-radius: 0.5rem;
   border-top-left-radius: 0.5rem;
+  transition: all 0.3s ease-in-out;
 }
 
 .article-heading {
   font-size: 20px;
   font-weight: 700;
   text-decoration: underline;
-  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+}
+
+.articles-heading {
+  font-size: 20px;
+  font-weight: 700;
+  text-decoration: underline;
+  padding: 1rem;
+  transition: all 0.3s ease-in-out;
 }
 
 .article-card-info {
   display: grid;
 }
 
-.article-body {
+.article-text {
   font-size: 14px;
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin-left: 1rem;
 }
 
 .article-bottom {
@@ -85,7 +123,8 @@
   position: absolute;
   bottom: 0%;
   width: 90%;
-  margin: 1rem;
+  padding: 1rem;
+  transition: all 0.3s ease-in-out;
 }
 
 .articles-container {
@@ -136,6 +175,21 @@
   color: rgb(255, 255, 255);
   margin: 1rem;
   border-radius: 0.5rem;
+}
+
+.comment-header-profile {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 100%;
+  background: rgba(0, 0, 0, 0.266);
+  overflow: hidden;
+  margin-right: 0.5rem;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 .single-comment-content {

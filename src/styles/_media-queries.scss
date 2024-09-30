@@ -15,6 +15,14 @@
 }
 
 @media (max-width: 1070px) {
+  .article-body {
+    flex-direction: column;
+  }
+
+  .article-text {
+    margin: 0;
+  }
+
   .articles-container {
     grid-template-columns: 1fr 1fr;
     max-width: 44rem;

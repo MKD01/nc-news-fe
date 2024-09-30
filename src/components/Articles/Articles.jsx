@@ -4,6 +4,7 @@ import { getArticles } from "../../utils/api";
 import { queryContext } from "../../contexts/QueryContext";
 import ArticlesCard from "./ArticlesCard";
 import ArticlesCardLoader from "./ArticlesCardLoader";
+import Nav from "../Nav/Nav";
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
@@ -53,25 +54,29 @@ const Articles = () => {
   }
 
   return (
-    <div className='articles-container'>
-      {!isLoading
-        ? articles.map((article) => {
-            const articleHeading =
-              article.title.length > 60
-                ? article.title.slice(0, 60) + "..."
-                : article.title;
+    <div>
+      <Nav />
 
-            return (
-              <ArticlesCard
-                key={article.article_id}
-                article={article}
-                articleHeading={articleHeading}
-              />
-            );
-          })
-        : Array.from({ length: 20 }, (_, i) => i).map((blank) => {
-            return <ArticlesCardLoader key={blank} />;
-          })}
+      <div className='articles-container'>
+        {!isLoading
+          ? articles.map((article) => {
+              const articleHeading =
+                article.title.length > 60
+                  ? article.title.slice(0, 60) + "..."
+                  : article.title;
+
+              return (
+                <ArticlesCard
+                  key={article.article_id}
+                  article={article}
+                  articleHeading={articleHeading}
+                />
+              );
+            })
+          : Array.from({ length: 20 }, (_, i) => i).map((blank) => {
+              return <ArticlesCardLoader key={blank} />;
+            })}
+      </div>
     </div>
   );
 };

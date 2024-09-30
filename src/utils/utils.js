@@ -6,13 +6,29 @@ export const capitalizeFirstLetter = (str) => {
 };
 
 export const formatDate = (date) => {
-  const options = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  };
+  const formattedDate = new Date(date);
   const today = new Date();
-  return today.toLocaleDateString("en-GB", options);
+
+  const secondsDif = (today - formattedDate) / 1000;
+
+  const createTimeMessage = (time, dusation) => {
+    return time === 1 ? `${time} ${dusation} ago` : `${time} ${dusation}s ago`;
+  };
+
+  const minsDif = Math.floor(secondsDif / 60);
+  if (minsDif === 0) return `A few moments ago`;
+
+  const hoursDif = Math.floor(minsDif / 60);
+  if (hoursDif === 0) return createTimeMessage(minsDif, "Min");
+
+  const daysDif = Math.floor(hoursDif / 24);
+  if (daysDif === 0) return createTimeMessage(hoursDif, "Hour");
+
+  const yearDif = Math.floor(daysDif / 365);
+
+  if (yearDif === 0) return createTimeMessage(daysDif, "Day");
+
+  return ycreateTimeMessage(yearDif, "Year");
 };
 
 export const createParams = (topic, sort_by) => {

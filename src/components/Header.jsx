@@ -1,25 +1,24 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { queryContext } from "../contexts/QueryContext";
 import { userContext } from "../contexts/UserContext";
+import { capitalizeFirstLetter } from "../utils/utils";
 
 const Header = () => {
-  const { setSort_by } = useContext(queryContext);
-  const { user, isLoading } = useContext(userContext);
+  const { user, isUserLoading } = useContext(userContext);
 
   return (
     <div id='header-container'>
       <Link id='header' to={`/articles`}>
         NC News
       </Link>
-      {isLoading ? (
+      {isUserLoading ? (
         <></>
       ) : (
         <Link to={`/user`} id='header-user-logo'>
-          {user.username}
-          <div className='header-profile'>
+          <div className='header-profile red-border'>
             <img src={user.avatar_url} alt={user.username} />
           </div>
+          {capitalizeFirstLetter(user.username)}
         </Link>
       )}
     </div>

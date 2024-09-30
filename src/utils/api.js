@@ -35,6 +35,12 @@ export const getTopics = () => {
   });
 };
 
+export const getAllUsers = () => {
+  return api.get("/users").then((res) => {
+    return res.data.users;
+  });
+};
+
 export const getUserByUsername = (username) => {
   return api
     .get(`/users/${username}`)
