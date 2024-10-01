@@ -41,9 +41,15 @@ const Vote = ({ votes, componentName, componentId }) => {
 
   return (
     <p className='likes'>
-      <SlLike onClick={() => handleVote(1)} />
+      <SlLike
+        className={voteAmount === 1 ? "red" : ""}
+        onClick={() => handleVote(1)}
+      />
       {votes + voteAmount}
-      <SlDislike onClick={() => handleVote(-1)} />
+      <SlDislike
+        className={voteAmount === -1 ? "red" : ""}
+        onClick={() => handleVote(-1)}
+      />
     </p>
   );
 };

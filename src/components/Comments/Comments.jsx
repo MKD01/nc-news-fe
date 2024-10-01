@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getCommentsByArticleId } from "../../utils/api";
 import SingleComment from "./SingleComment";
+import PostComment from "./PostComment";
+import CommentsLoader from "./CommentsLoader";
 
 const Comments = () => {
   const { articleId } = useParams();
@@ -16,15 +18,12 @@ const Comments = () => {
   }, []);
 
   if (isLoading) {
-    return (
-      <div id='loader-container'>
-        <div id='loader'></div>
-      </div>
-    );
+    return <CommentsLoader />;
   }
 
   return (
-    <div>
+    <div className='full-width'>
+      <PostComment articleId={articleId} setComments={setComments} />
       {comments.map((comment) => {
         return <SingleComment key={comment.comment_id} comment={comment} />;
       })}

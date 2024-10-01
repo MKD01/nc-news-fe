@@ -2,7 +2,7 @@ import Skeleton from "@mui/material/Skeleton";
 
 const ArticlesCardLoader = ({}) => {
   return (
-    <div className='articles'>
+    <div className='articles items-loader'>
       <Skeleton
         sx={{
           bgcolor: "grey.700",

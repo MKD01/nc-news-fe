@@ -53,29 +53,34 @@ const Articles = () => {
     return <h2>Error...</h2>;
   }
 
+  if (isLoading) {
+    return (
+      <div className='articles-container'>
+        {Array.from({ length: 20 }, (_, i) => i).map((blank) => {
+          return <ArticlesCardLoader key={blank} />;
+        })}
+      </div>
+    );
+  }
+
   return (
     <div>
       <Nav />
-
       <div className='articles-container'>
-        {!isLoading
-          ? articles.map((article) => {
-              const articleHeading =
-                article.title.length > 60
-                  ? article.title.slice(0, 60) + "..."
-                  : article.title;
+        {articles.map((article) => {
+          const articleHeading =
+            article.title.length > 60
+              ? article.title.slice(0, 60) + "..."
+              : article.title;
 
-              return (
-                <ArticlesCard
-                  key={article.article_id}
-                  article={article}
-                  articleHeading={articleHeading}
-                />
-              );
-            })
-          : Array.from({ length: 20 }, (_, i) => i).map((blank) => {
-              return <ArticlesCardLoader key={blank} />;
-            })}
+          return (
+            <ArticlesCard
+              key={article.article_id}
+              article={article}
+              articleHeading={articleHeading}
+            />
+          );
+        })}
       </div>
     </div>
   );

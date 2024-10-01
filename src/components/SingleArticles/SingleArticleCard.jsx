@@ -4,6 +4,7 @@ import { capitalizeFirstLetter, formatDate } from "../../utils/utils";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Vote from "./Vote";
+import SingleArticleLoader from "./SingleArticleLoader";
 
 const SingleArticleCard = () => {
   const { articleId } = useParams();
@@ -23,15 +24,11 @@ const SingleArticleCard = () => {
   }, []);
 
   if (isLoading) {
-    return (
-      <div id='loader-container'>
-        <div id='loader'></div>
-      </div>
-    );
+    return <SingleArticleLoader />;
   }
 
   return (
-    <div className='single article'>
+    <div className='single item'>
       <div className='info-container'>
         <div className='user-info-container'>
           <div className='header-profile white-border'>

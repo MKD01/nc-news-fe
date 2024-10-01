@@ -16,7 +16,7 @@ export const formatDate = (date) => {
   };
 
   const minsDif = Math.floor(secondsDif / 60);
-  if (minsDif === 0) return `A few moments ago`;
+  if (minsDif <= 0) return `A few moments ago`;
 
   const hoursDif = Math.floor(minsDif / 60);
   if (hoursDif === 0) return createTimeMessage(minsDif, "Min");
@@ -28,7 +28,7 @@ export const formatDate = (date) => {
 
   if (yearDif === 0) return createTimeMessage(daysDif, "Day");
 
-  return ycreateTimeMessage(yearDif, "Year");
+  return createTimeMessage(yearDif, "Year");
 };
 
 export const createParams = (topic, sort_by) => {

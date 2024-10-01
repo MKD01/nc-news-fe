@@ -52,16 +52,17 @@ export const getUserByUsername = (username) => {
     });
 };
 
-// export const postCommentByArticleId = (article_id, currUser, comment) => {
-//   return api
-//     .post(`/articles/${article_id}/comments`, {
-//       username: currUser,
-//       body: comment,
-//     })
-//     .then((res) => {
-//       return res.data.comment;
-//     });
-// };
+export const postCommentByArticleId = (article_id, currUser, comment) => {
+  console.log(article_id, currUser, comment);
+  return api
+    .post(`/articles/${article_id}/comments`, {
+      username: currUser,
+      body: comment,
+    })
+    .then((res) => {
+      return res.data.comment;
+    });
+};
 
 // export const deleteComment = (comment_id) => {
 //   return api.delete(`comments/${comment_id}`);
