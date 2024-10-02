@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { getTopics } from "../../utils/api";
 import { queryContext } from "../../contexts/QueryContext";
 import { Link } from "react-router-dom";
-import Skeleton from "@mui/material/Skeleton";
 import DropDown from "../DropDown";
 
 const TopicsDropdown = () => {
