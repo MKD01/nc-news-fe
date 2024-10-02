@@ -68,7 +68,7 @@ const PostComment = ({ articleId, setComments }) => {
           onChange={handleChange}
           onClick={handleClick}
           onKeyDown={handleKeyDown}
-          readonly={isLoading}
+          readOnly={isLoading}
         ></textarea>
         {isActive && (
           <div id='textarea-extention'>

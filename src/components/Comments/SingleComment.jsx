@@ -1,5 +1,6 @@
 import { formatDate } from "../../utils/utils";
 import Vote from "../SingleArticles/Vote";
+import CommentOptions from "./CommentOptions";
 
 const SingleComment = ({ comment }) => {
   return (
@@ -19,6 +20,8 @@ const SingleComment = ({ comment }) => {
         </div>
       </div>
       <div className='comment-bottom'>
+        <CommentOptions author={comment.author} />
+
         <Vote
           votes={comment.votes}
           componentName='comments'
