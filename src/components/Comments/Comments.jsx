@@ -4,6 +4,7 @@ import { getCommentsByArticleId } from "../../utils/api";
 import SingleComment from "./SingleComment";
 import PostComment from "./PostComment";
 import CommentsLoader from "./CommentsLoader";
+import CommentOptions from "./CommentOptions";
 
 const Comments = () => {
   const { articleId } = useParams();
@@ -25,7 +26,15 @@ const Comments = () => {
     <div className='full-width'>
       <PostComment articleId={articleId} setComments={setComments} />
       {comments.map((comment) => {
-        return <SingleComment key={comment.comment_id} comment={comment} />;
+        return (
+          <SingleComment key={comment.comment_id} comment={comment}>
+            <CommentOptions
+              commentId={comment.comment_id}
+              author={comment.author}
+              setComments={setComments}
+            />
+          </SingleComment>
+        );
       })}
     </div>
   );

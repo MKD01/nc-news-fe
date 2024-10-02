@@ -303,6 +303,10 @@ span {
   align-items: center;
 }
 
+#comment-delete-container {
+  position: relative;
+}
+
 .comment-options {
   padding: 1.5rem;
   position: fixed;
@@ -317,4 +321,44 @@ span {
   border-bottom: 1px white solid;
   width: calc(100% - 3rem);
   margin: 1rem 0;
+}
+
+.model-options {
+  text-align: left;
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+  background: rgba(0, 0, 0, 0);
+  font-size: 16px;
+  font-weight: 600;
+  height: 2rem;
+  border: 0rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+
+  &:hover:enabled {
+    background: rgba(43, 43, 43, 0.3);
+  }
+
+  &:active:enabled {
+    border-left: 2px solid white;
+    background: rgb(43, 43, 43);
+  }
+}
+
+#model-options-containers {
+  border-radius: 0.3rem;
+  padding-bottom: 1.5rem;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  padding-top: 0.5rem;
+  list-style-type: none;
+  width: 12rem;
+  background: rgb(64, 62, 62);
+  position: absolute;
+  z-index: 10;
+  left: -390%;
+  top: 50%;
 }

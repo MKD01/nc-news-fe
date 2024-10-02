@@ -64,6 +64,6 @@ export const postCommentByArticleId = (article_id, currUser, comment) => {
     });
 };
 
-// export const deleteComment = (comment_id) => {
-//   return api.delete(`comments/${comment_id}`);
-// };
+export const deleteComment = (comment_id) => {
+  return api.delete(`comments/${comment_id}`);
+};

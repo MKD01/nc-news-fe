@@ -1,37 +1,67 @@
 import { userContext } from "../../contexts/UserContext";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { RxDotsHorizontal } from "react-icons/rx";
 import { RiDeleteBin5Line } from "react-icons/ri";
+import useModel from "../../hooks/useModel";
+import { deleteComment } from "../../utils/api";
 
-const CommentOptions = ({ author }) => {
-  const [displayOptions, setDisplayOptions] = useState(false);
+const CommentOptions = ({ author, commentId, setComments }) => {
+  const [isRequestPending, setIsRequestPending] = useState(false);
+  const [err, setErr] = useState("");
   const { user } = useContext(userContext);
+  const { isModelOpen, modelRef, handleModelClick } = useModel();
 
-  const handleClick = () => {
-    setDisplayOptions(true);
+  const handleDeleteClick = () => {
+    setIsRequestPending(true);
+    deleteComment(commentId)
+      .then(() => {
+        setIsRequestPending(false);
+        handleModelClick();
+        setComments((comments) => {
+          return comments.filter((comment) => {
+            return comment.comment_id !== commentId;
+          });
+        });
+      })
+      .catch(() => {
+        setErr("Something Went Wrong :(");
+      });
   };
 
+  if (err) {
+    return <p>{err}</p>;
+  }
+
   return (
-    <>
-      {author === user.username && (
-        <button onClick={handleClick} className='delete-option'>
+    user.username === author && (
+      <div id='comment-delete-container' ref={modelRef}>
+        <button className='delete-option' onClick={handleModelClick}>
           <span>
             <RxDotsHorizontal />
           </span>
         </button>
-      )}
+        {isModelOpen && (
+          <ul id='model-options-containers'>
+            <div className={`options-arrow`}></div>
 
-      {displayOptions && (
-        <div className='comment-options'>
-          <p>Options</p>
-          <div className='options-linebreak' />
-          <button>
-            <RiDeleteBin5Line />
-            Delete Comment
-          </button>
-        </div>
-      )}
-    </>
+            <button
+              className='model-options'
+              disabled={isRequestPending}
+              onClick={handleDeleteClick}
+              // className='delete-button'
+            >
+              {isRequestPending ? (
+                "Deleting..."
+              ) : (
+                <>
+                  <RiDeleteBin5Line /> Delete Comment
+                </>
+              )}
+            </button>
+          </ul>
+        )}
+      </div>
+    )
   );
 };
 

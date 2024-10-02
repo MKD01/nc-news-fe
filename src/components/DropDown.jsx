@@ -1,30 +1,16 @@
 import { useEffect, useRef, useState } from "react";
+import useModel from "../hooks/useModel";
 
 const DropDown = ({ buttonText, dropdownOptions }) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const ref = useRef();
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (ref.current && !ref.current.contains(event.target)) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-  }, [ref]);
-
-  const handleDropdownClick = () => {
-    setIsDropdownOpen((currVal) => !currVal);
-  };
+  const { isModelOpen, modelRef, handleModelClick } = useModel();
 
   return (
-    <div ref={ref}>
-      <button id='dropdown-button' onClick={handleDropdownClick}>
+    <div ref={modelRef}>
+      <button id='dropdown-button' onClick={handleModelClick}>
         {buttonText}
-        <i className={`arrow ${isDropdownOpen ? "down" : "up"}`}></i>
+        <i className={`arrow ${isModelOpen ? "down" : "up"}`}></i>
       </button>
-      {isDropdownOpen && (
+      {isModelOpen && (
         <ul id='dropdown-options-containers'>
           <div className={`options-arrow`}></div>
 
