@@ -3,6 +3,7 @@ import { getTopics } from "../../utils/api";
 import { queryContext } from "../../contexts/QueryContext";
 import { Link } from "react-router-dom";
 import DropDown from "../DropDown";
+import { capitalizeFirstLetter } from "../../utils/utils";
 
 const TopicsDropdown = () => {
   const { topic, setTopic } = useContext(queryContext);
@@ -23,8 +24,7 @@ const TopicsDropdown = () => {
 
   return (
     <DropDown
-      buttonText={topic}
-      onClose={handleClick}
+      buttonText={capitalizeFirstLetter(topic)}
       dropdownOptions={topics.map((topic) => {
         return {
           name: topic.slug,

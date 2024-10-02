@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { queryContext } from "../../contexts/QueryContext";
 import DropDown from "../DropDown";
+import { capitalizeFirstLetter } from "../../utils/utils";
 
 const SortDropdown = () => {
   const dropdownOptions = ["Latest", "Oldest", "Popular", "Unpopular"];
@@ -14,8 +15,7 @@ const SortDropdown = () => {
 
   return (
     <DropDown
-      buttonText={sort_by}
-      onClose={handleClick}
+      buttonText={capitalizeFirstLetter(sort_by)}
       dropdownOptions={dropdownOptions.map((option) => {
         return {
           name: option,

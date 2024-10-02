@@ -1,18 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { capitalizeFirstLetter } from "../utils/utils";
 
-const DropDown = ({ buttonText, onClose, dropdownOptions }) => {
+const DropDown = ({ buttonText, dropdownOptions }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [arrowDirection, setArrowDirection] = useState({});
   const ref = useRef();
-
-  useEffect(() => {
-    if (isDropdownOpen) {
-      setArrowDirection("down");
-    } else {
-      setArrowDirection("up");
-    }
-  }, [isDropdownOpen]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -31,8 +21,8 @@ const DropDown = ({ buttonText, onClose, dropdownOptions }) => {
   return (
     <div ref={ref}>
       <button id='dropdown-button' onClick={handleDropdownClick}>
-        {capitalizeFirstLetter(buttonText)}
-        <i className={`arrow ${arrowDirection}`}></i>
+        {buttonText}
+        <i className={`arrow ${isDropdownOpen ? "down" : "up"}`}></i>
       </button>
       {isDropdownOpen && (
         <ul id='dropdown-options-containers'>
