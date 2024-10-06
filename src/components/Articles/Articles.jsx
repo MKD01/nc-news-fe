@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getArticles } from "../../utils/api";
 import { queryContext } from "../../contexts/QueryContext";
@@ -24,6 +24,10 @@ const Articles = () => {
     if (topicParam) {
       setTopic(topicParam);
     }
+  }, []);
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {

@@ -5,8 +5,8 @@ const api = axios.create({
   baseURL: "https://mkd-nc-news.onrender.com/api",
 });
 
-export const getArticles = (topic, sort_by) => {
-  const params = createParams(topic, sort_by);
+export const getArticles = (topic, sort_by, page = 1, limit = 10) => {
+  const params = createParams(topic, sort_by, page, limit);
 
   return api.get(`/articles`, { params }).then(({ data }) => {
     return data;

@@ -31,8 +31,8 @@ export const formatDate = (date) => {
   return createTimeMessage(yearDif, "Year");
 };
 
-export const createParams = (topic, sort_by) => {
-  const params = { limit: 20 };
+export const createParams = (topic, sort_by, page, limit) => {
+  const params = { page, limit };
 
   if (topic !== "Topics") {
     params.topic = topic;
@@ -55,6 +55,16 @@ export const createParams = (topic, sort_by) => {
 
   if (sort_by === "Unpopular") {
     params.sort_by = "votes";
+    params.order_by = "asc";
+  }
+
+  if (sort_by === "Most Comments") {
+    params.sort_by = "comment_count";
+    params.order_by = "desc";
+  }
+
+  if (sort_by === "Least Comments") {
+    params.sort_by = "comment_count";
     params.order_by = "asc";
   }
 
