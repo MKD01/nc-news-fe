@@ -1,16 +1,20 @@
 @import "/src/styles/_colors.scss";
 
-#dropdown-button {
-  display: grid;
-  grid-template-columns: 88% 12%;
+#dropdown-container {
+  position: relative;
+}
 
+#dropdown-button {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
   background: transparent;
   color: white;
   height: 100%;
   font-size: 24px;
   font-weight: 700;
   height: 100%;
-  width: 10rem;
+  min-width: 10rem;
   border: 0rem;
   margin-left: 1rem;
   padding-bottom: 0.5rem;
@@ -31,10 +35,11 @@
   margin-top: 1rem;
   padding-top: 0.5rem;
   list-style-type: none;
-  width: 10rem;
+  min-width: 10rem;
   background: rgb(64, 62, 62);
   position: absolute;
   z-index: 10;
+  right: -5%;
 }
 
 .dropdown-options {

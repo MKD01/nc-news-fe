@@ -8,7 +8,7 @@ import { deleteComment } from "../../utils/api";
 const CommentOptions = ({ author, commentId, setComments }) => {
   const [isRequestPending, setIsRequestPending] = useState(false);
   const [err, setErr] = useState("");
-  const { user } = useContext(userContext);
+  const { username } = useContext(userContext);
   const { isModelOpen, modelRef, handleModelClick } = useModel();
 
   const handleDeleteClick = () => {
@@ -33,7 +33,7 @@ const CommentOptions = ({ author, commentId, setComments }) => {
   }
 
   return (
-    user.username === author && (
+    username === author && (
       <div id='comment-delete-container' ref={modelRef}>
         <button className='delete-option' onClick={handleModelClick}>
           <span>

@@ -1,6 +1,6 @@
 #header-container {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-around;
   padding: 0.5rem;
   background: rgba(0, 0, 0, 0.238);
@@ -19,6 +19,40 @@
     color: red;
     font-size: 24px;
     font-weight: 700;
+  }
+
+  #header-user-logo-options {
+    padding: 0.5rem 1rem;
+    width: 100%;
+    background: rgb(64, 62, 62);
+    border: none;
+    margin-top: 0.5rem;
+    padding-left: 1rem;
+    font-size: 18px;
+    font-weight: 600;
+    border: 0rem;
+    color: white;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      background: rgba(43, 43, 43, 0.3);
+    }
+
+    &:active {
+      border-left: 2px solid white;
+      background: rgb(43, 43, 43);
+    }
+  }
+
+  #header-user-logo-loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: red;
+    font-size: 24px;
+    font-weight: 700;
+    height: 100%;
   }
 }
 

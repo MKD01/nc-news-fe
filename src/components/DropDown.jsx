@@ -5,7 +5,7 @@ const DropDown = ({ buttonText, dropdownOptions }) => {
   const { isModelOpen, modelRef, handleModelClick } = useModel();
 
   return (
-    <div ref={modelRef}>
+    <div id='dropdown-container' ref={modelRef}>
       <button id='dropdown-button' onClick={handleModelClick}>
         {buttonText}
         <i className={`arrow ${isModelOpen ? "down" : "up"}`}></i>
