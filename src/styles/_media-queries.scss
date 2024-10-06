@@ -6,7 +6,6 @@
 
   #nav-container {
     max-width: 66rem;
-    // grid-template-columns: 1fr 1fr 1fr;
   }
 
   #filter-container {
@@ -51,5 +50,23 @@
 
   #filter-container {
     grid-column: 1;
+  }
+
+  .single-article-container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 455px) {
+  #header-container #header {
+    font-size: 34px;
+  }
+
+  .article-image {
+    width: 100%;
+  }
+
+  .main-content {
+    padding: 0;
   }
 }
