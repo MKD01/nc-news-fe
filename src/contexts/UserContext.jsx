@@ -9,17 +9,19 @@ export const UserProvider = ({ children }) => {
   const [isUserLoading, setIsUserLoading] = useState(true);
 
   useEffect(() => {
-    let userToFetch = username;
+    let usernameToFetch = username;
 
     if (!username) {
-      userToFetch = localStorage.getItem("username");
+      const savedUsername = localStorage.getItem("username");
+      if (savedUsername) usernameToFetch = savedUsername;
+      else usernameToFetch = "tickle122";
     } else {
       localStorage.setItem("username", username);
     }
 
     setIsUserLoading(true);
 
-    getUserByUsername(userToFetch).then((res) => {
+    getUserByUsername(usernameToFetch).then((res) => {
       setUser(res);
       setIsUserLoading(false);
     });
