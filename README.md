@@ -18,6 +18,7 @@
 
 The frontend project using the previously created backend 'News API'.
 This website allows users to login/switch users and view a page of articles which can be sorted by different categories and filtered by different topics as well. You can click to learn more about each of these articles and view a list of comments here as well. As a user you can also post new comments and delete your own comments as well.
+
 ---
 
 # **Setup / Installation Instructions**
