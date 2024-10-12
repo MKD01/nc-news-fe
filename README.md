@@ -16,8 +16,7 @@
 
 ## **Description**
 
-The frontend project using the previously created backend 'News API'.
-This website allows users to login/switch users and view a page of articles which can be sorted by different categories and filtered by different topics as well. You can click to learn more about each of these articles and view a list of comments here as well. As a user you can also post new comments and delete your own comments as well.
+'NC News' is an app built for viewing news articles. These articles can be sorted and filtered, and each article has a list of viewable comments as well. As a user you can switch users and view and upvote/downvote articles and comments. You can also add new comments and delete your own comments as well. This project uses the previously created 'News API' to fetch its data as well as to update, post and delete articles and their associated comments.
 
 ---
 
