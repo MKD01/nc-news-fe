@@ -5,6 +5,10 @@ const api = axios.create({
   baseURL: "https://mkd-nc-news.onrender.com/api",
 });
 
+export const checkServerStatus = () => {
+  return api.get(`/status`);
+};
+
 export const getArticles = (topic, sort_by, page = 1, limit = 10) => {
   const params = createParams(topic, sort_by, page, limit);
 
@@ -59,5 +63,5 @@ export const postCommentByArticleId = (article_id, currUser, comment) => {
 };
 
 export const deleteComment = (comment_id) => {
-  return api.delete(`comments/${comment_id}`);
+  return api.delete(`/comments/${comment_id}`);
 };
