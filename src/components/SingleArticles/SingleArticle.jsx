@@ -1,6 +1,7 @@
 import { useLayoutEffect } from "react";
 import Comments from "../Comments/Comments";
 import SingleArticleCard from "./SingleArticleCard";
+import BackButton from "../BackButton";
 
 const SingleArticle = () => {
   useLayoutEffect(() => {
@@ -9,6 +10,7 @@ const SingleArticle = () => {
 
   return (
     <div className='single-article-container'>
+      <BackButton />
       <SingleArticleCard />
       <Comments />
     </div>

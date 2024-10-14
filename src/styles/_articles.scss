@@ -362,3 +362,22 @@ span {
   left: -390%;
   top: 50%;
 }
+
+#back-button {
+  position: absolute;
+  top: 12%;
+  left: 7%;
+  width: 2.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2rem;
+  background: rgb(40, 40, 40);
+  border: 1px solid white;
+  color: white;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}

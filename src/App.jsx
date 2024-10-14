@@ -19,10 +19,4 @@ function App() {
   );
 }
 
-// need to:
-
-// create a back button to navigate to the previous page
-// button to take you back to the top of the page
-// pagination for articles and comments
-
 export default App;
