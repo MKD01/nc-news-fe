@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { patchComponentVotes } from "../../utils/api";
 import { SlDislike, SlLike } from "react-icons/sl";
 
