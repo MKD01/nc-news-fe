@@ -45,19 +45,21 @@ const Home = () => {
     <div id='home-container'>
       <div id='carousel-container'>
         <CCarousel controls indicators dark>
-          {latestArticles.map((article, i) => {
+          {latestArticles.map((article) => {
             return (
               <CCarouselItem key={article.article_id}>
-                <div>
-                  <img
-                    className='carousel-image'
-                    src={article.article_img_url}
-                    alt={article.title}
-                  />
-                </div>
-                <div className='carousel-info'>
-                  <h2 className='carousel-heading'>{article.title}</h2>
-                </div>
+                <Link to={`/articles/${article.article_id}`}>
+                  <div>
+                    <img
+                      className='carousel-image'
+                      src={article.article_img_url}
+                      alt={article.title}
+                    />
+                  </div>
+                  <div className='carousel-info'>
+                    <h2 className='carousel-heading'>{article.title}</h2>
+                  </div>
+                </Link>
               </CCarouselItem>
             );
           })}
