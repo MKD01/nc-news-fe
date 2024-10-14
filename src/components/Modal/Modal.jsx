@@ -13,6 +13,7 @@ const Modal = () => {
 
     checkServerStatus().finally(() => {
       setServerStatus("");
+      clearTimeout(timeoutID);
     });
 
     return () => {
