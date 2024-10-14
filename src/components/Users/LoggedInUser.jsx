@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { Skeleton } from "@mui/material";
 import { userContext } from "../../contexts/UserContext";
 import { capitalizeFirstLetter } from "../../utils/utils";
-import { Link } from "react-router-dom";
 import { getAllUsers } from "../../utils/api";
 import DropDown from "../DropDown";
 

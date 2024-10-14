@@ -1,5 +1,5 @@
 import { userContext } from "../../contexts/UserContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { RxDotsHorizontal } from "react-icons/rx";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import useModel from "../../hooks/useModel";
