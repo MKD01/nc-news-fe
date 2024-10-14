@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from "react";
 import useModel from "../hooks/useModel";
 
 const DropDown = ({ buttonText, dropdownOptions }) => {
