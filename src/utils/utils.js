@@ -32,7 +32,7 @@ export const formatDate = (date) => {
 };
 
 export const createParams = (topic, sort_by, page, limit) => {
-  const params = { page, limit };
+  const params = { p: page, limit };
 
   if (topic !== "Topics") {
     params.topic = topic;

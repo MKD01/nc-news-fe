@@ -1,4 +1,10 @@
-import { useContext, useEffect, useLayoutEffect, useState } from "react";
+import {
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { useSearchParams } from "react-router-dom";
 import { getArticles } from "../../utils/api";
 import { queryContext } from "../../contexts/QueryContext";
@@ -9,9 +15,11 @@ import Nav from "../Nav/Nav";
 const Articles = () => {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [page, setPage] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
   const { sort_by, setSort_by, topic, setTopic } = useContext(queryContext);
   const [error, setError] = useState("");
+  const articlesList = useRef();
 
   useEffect(() => {
     const topicParam = searchParams.get("topic");
@@ -31,8 +39,6 @@ const Articles = () => {
   }, []);
 
   useEffect(() => {
-    setIsLoading(true);
-
     searchParams.set("sort-by", sort_by);
 
     if (topic !== "Topics") {
@@ -43,7 +49,7 @@ const Articles = () => {
 
     setSearchParams(searchParams);
 
-    getArticles(topic, sort_by)
+    getArticles(topic, sort_by, page)
       .then(({ articles }) => {
         setArticles(articles);
         setIsLoading(false);
@@ -53,13 +59,52 @@ const Articles = () => {
       });
   }, [sort_by, topic]);
 
+  const fetchArticles = () => {
+    setPage((currPage) => {
+      const newPage = currPage + 1;
+
+      setIsLoading(true);
+
+      getArticles(topic, sort_by, newPage)
+        .then(({ articles }) => {
+          if (articles.length === 0) {
+            setPage(newPage - 1);
+            return;
+          }
+
+          setArticles((currArticles) => [...currArticles, ...articles]);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          setError(err);
+        });
+
+      return newPage;
+    });
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isLoading]);
+
   if (error) {
     return <h2>Error...</h2>;
   }
 
-  if (isLoading) {
+  const handleScroll = () => {
+    const currScrollPosition =
+      window.innerHeight + document.documentElement.scrollTop;
+    const bottomOfPagePosition = document.documentElement.offsetHeight;
+
+    if (currScrollPosition === bottomOfPagePosition && !isLoading) {
+      fetchArticles();
+    }
+  };
+
+  if (isLoading && articles.length === 0) {
     return (
-      <div className='articles-container'>
+      <div ref={articlesList} className='articles-container'>
         {Array.from({ length: 20 }, (_, i) => i).map((blank) => {
           return <ArticlesCardLoader key={blank} />;
         })}
