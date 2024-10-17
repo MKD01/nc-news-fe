@@ -34,7 +34,7 @@ export const formatDate = (date) => {
 export const createParams = (topic, sort_by, page, limit) => {
   const params = { p: page, limit };
 
-  if (topic !== "Topics") {
+  if (topic !== "All articles") {
     params.topic = topic;
   }
 
@@ -48,24 +48,14 @@ export const createParams = (topic, sort_by, page, limit) => {
     params.order_by = "asc";
   }
 
-  if (sort_by === "Popular") {
+  if (sort_by === "Likes") {
     params.sort_by = "votes";
     params.order_by = "desc";
   }
 
-  if (sort_by === "Unpopular") {
-    params.sort_by = "votes";
-    params.order_by = "asc";
-  }
-
-  if (sort_by === "Most Comments") {
+  if (sort_by === "Comments") {
     params.sort_by = "comment_count";
     params.order_by = "desc";
-  }
-
-  if (sort_by === "Least Comments") {
-    params.sort_by = "comment_count";
-    params.order_by = "asc";
   }
 
   return params;
