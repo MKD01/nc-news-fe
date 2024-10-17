@@ -15,7 +15,11 @@ const DropDown = ({ buttonText, dropdownOptions }) => {
 
           {dropdownOptions.map(({ name, value }) => {
             return (
-              <li key={name} className='options-container'>
+              <li
+                key={name}
+                className='options-container'
+                onClick={handleModelClick}
+              >
                 {value}
                 <div className='underline' />
               </li>

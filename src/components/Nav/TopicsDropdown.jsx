@@ -1,14 +1,15 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getTopics } from "../../utils/api";
-import { queryContext } from "../../contexts/QueryContext";
-import { Link } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import DropDown from "../DropDown";
 import { capitalizeFirstLetter } from "../../utils/utils";
 
 const TopicsDropdown = () => {
-  const { topic, setTopic } = useContext(queryContext);
   const [topics, setTopics] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const topic = searchParams.get("topic") || "All articles";
 
   useEffect(() => {
     setIsLoading(true);
@@ -19,26 +20,40 @@ const TopicsDropdown = () => {
   }, []);
 
   const handleClick = (val) => {
-    setTopic(val);
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set("topic", val);
+    setSearchParams(newParams);
   };
 
   return (
     <DropDown
       buttonText={capitalizeFirstLetter(topic)}
-      dropdownOptions={topics.map((topic) => {
-        return {
-          name: topic.slug,
+      dropdownOptions={[
+        {
+          name: "All",
           value: (
-            <Link
-              to={`/articles`}
+            <div
               className='dropdown-options'
-              onClick={() => handleClick(topic.slug)}
+              onClick={() => handleClick("All articles")}
             >
-              {topic.slug}
-            </Link>
+              All articles
+            </div>
           ),
-        };
-      })}
+        },
+        ...topics.map((topic) => {
+          return {
+            name: topic.slug,
+            value: (
+              <div
+                className='dropdown-options'
+                onClick={() => handleClick(topic.slug)}
+              >
+                {capitalizeFirstLetter(topic.slug)}
+              </div>
+            ),
+          };
+        }),
+      ]}
     />
   );
 };

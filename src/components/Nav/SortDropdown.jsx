@@ -1,16 +1,17 @@
-import { useContext } from "react";
-import { Link } from "react-router-dom";
-import { queryContext } from "../../contexts/QueryContext";
+import { useSearchParams } from "react-router-dom";
 import DropDown from "../DropDown";
 import { capitalizeFirstLetter } from "../../utils/utils";
 
 const SortDropdown = () => {
-  const dropdownOptions = ["Latest", "Oldest", "Popular", "Unpopular"];
+  const dropdownOptions = ["Latest", "Oldest", "Likes", "Comments"];
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const { sort_by, setSort_by } = useContext(queryContext);
+  const sort_by = searchParams.get("sort-by") || "Latest";
 
   const handleClick = (val) => {
-    setSort_by(val);
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set("sort-by", val);
+    setSearchParams(newParams);
   };
 
   return (
@@ -20,17 +21,16 @@ const SortDropdown = () => {
         return {
           name: option,
           value: (
-            <Link
-              to={`/articles`}
+            <div
               className='dropdown-options'
               onClick={() => handleClick(option)}
             >
               {option}
-            </Link>
+            </div>
           ),
         };
       })}
-    />
+    ></DropDown>
   );
 };
 
