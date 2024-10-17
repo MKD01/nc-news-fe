@@ -1,13 +1,6 @@
-import {
-  useContext,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getArticles } from "../../utils/api";
-import { queryContext } from "../../contexts/QueryContext";
 import ArticlesCard from "./ArticlesCard";
 import ArticlesCardLoader from "./ArticlesCardLoader";
 import Nav from "../Nav/Nav";
@@ -15,90 +8,61 @@ import Nav from "../Nav/Nav";
 const Articles = () => {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [page, setPage] = useState(1);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const { sort_by, setSort_by, topic, setTopic } = useContext(queryContext);
+  const [finalPageNum, setFinalPageNum] = useState(0);
   const [error, setError] = useState("");
+  const [searchParams] = useSearchParams();
+
   const articlesList = useRef();
 
-  useEffect(() => {
-    const topicParam = searchParams.get("topic");
-    const sortByParam = searchParams.get("sort-by");
-
-    if (sortByParam) {
-      setSort_by(sortByParam);
-    }
-
-    if (topicParam) {
-      setTopic(topicParam);
-    }
-  }, []);
+  const sortBy = searchParams.get("sort-by");
+  const topic = searchParams.get("topic");
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
-    searchParams.set("sort-by", sort_by);
+    setIsLoading(true);
 
-    if (topic !== "Topics") {
-      searchParams.set("topic", topic);
-    } else {
-      searchParams.delete("topic");
-    }
-
-    setSearchParams(searchParams);
-
-    getArticles(topic, sort_by, page)
-      .then(({ articles }) => {
+    getArticles(topic, sortBy, 1)
+      .then(({ articles, count }) => {
+        setFinalPageNum(Math.ceil(count / 10));
         setArticles(articles);
+
         setIsLoading(false);
       })
       .catch((err) => {
         setError(err);
       });
-  }, [sort_by, topic]);
-
-  const fetchArticles = () => {
-    setPage((currPage) => {
-      const newPage = currPage + 1;
-
-      setIsLoading(true);
-
-      getArticles(topic, sort_by, newPage)
-        .then(({ articles }) => {
-          if (articles.length === 0) {
-            setPage(newPage - 1);
-            return;
-          }
-
-          setArticles((currArticles) => [...currArticles, ...articles]);
-          setIsLoading(false);
-        })
-        .catch((err) => {
-          setError(err);
-        });
-
-      return newPage;
-    });
-  };
+  }, [topic, sortBy]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [isLoading]);
+  }, [articles]);
 
   if (error) {
     return <h2>Error...</h2>;
   }
 
   const handleScroll = () => {
-    const currScrollPosition =
-      window.innerHeight + document.documentElement.scrollTop;
+    const currScrollPosition = Math.ceil(
+      window.innerHeight + document.documentElement.scrollTop
+    );
     const bottomOfPagePosition = document.documentElement.offsetHeight;
 
     if (currScrollPosition === bottomOfPagePosition && !isLoading) {
-      fetchArticles();
+      const pageNum = Math.ceil(articles.length / 10) + 1;
+
+      if (pageNum > finalPageNum) return;
+
+      getArticles(topic, sortBy, pageNum)
+        .then(({ articles }) => {
+          setArticles((currArticles) => [...currArticles, ...articles]);
+        })
+        .catch((err) => {
+          setError(err);
+        });
     }
   };
 
